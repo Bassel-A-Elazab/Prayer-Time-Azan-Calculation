@@ -1,6 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include <ctime>
+#include <cmath>
 using namespace std;
 
 const double PI = 3.14159265358979323846;
@@ -78,6 +79,46 @@ public:
     }
     double convertDegreesToRadians(double degrees){  //Function that convert degrees to radians.
         return (degrees*(PI/180));
+    }
+
+double *calculatePrayerTime(){
+        double yearAngle,D,T,R,Z,U,VD,VN,W,Dawn,Sunrise,Noon,Afternoon,Sunset,Dusk;
+        double getPrayerTime[6];
+        yearAngle = ((2*PI)*dayOfYear)/365;       //Calculate Year Angle.
+        R = 15*timeZone;                                //Calculate Reference Longitude In Degrees.
+        // Calculate Solar Declination In Degrees.
+        D = convertRadiansToDegrees((0.006918 - (0.399912*cos(yearAngle))+(0.070257*sin(yearAngle)) - (0.0006758*cos(2*yearAngle))+(0.000907*sin(2*yearAngle)) - (0.002697*cos(3*yearAngle))+(0.001480*sin(2*yearAngle)) ));
+        //Calculate Equation Of Time In Minutes.
+        T = 229.18*(0.000075+(0.001868*cos(yearAngle)) - (0.032077*sin(yearAngle)) - (0.014615*cos(2*yearAngle))-(0.040849*sin(2*yearAngle)));
+
+        Z = 12+((R-Long)/15)-(T/60);
+
+        U = (180/(15*PI))*acos( (sin(convertDegreesToRadians((-0.8333-0.0347*sin(Height)*pow(abs(Height),0.05)))) - sin(convertDegreesToRadians(D)) * sin(convertDegreesToRadians(Lat))) / (cos(convertDegreesToRadians(D)) * cos(convertDegreesToRadians(Lat))) );
+
+        VD = (180/(15*PI)) * acos( ( -sin(convertDegreesToRadians(GD)) - sin(convertDegreesToRadians(D)) * sin(convertDegreesToRadians(Lat)) ) / ( cos(convertDegreesToRadians(D)) * cos(convertDegreesToRadians(Lat)) ));
+
+        VN = (180/(15*PI)) * acos( ( -sin(convertDegreesToRadians(GN)) - sin(convertDegreesToRadians(D)) * sin(convertDegreesToRadians(Lat)) ) / ( cos(convertDegreesToRadians(D)) * cos(convertDegreesToRadians(Lat)) ));
+
+        W = (180/(15*PI)) * acos( (sin(atan(1/(SH+tan(convertDegreesToRadians(abs(Lat-D)))))) - sin(convertDegreesToRadians(D))) / ( cos(convertDegreesToRadians(D)) * cos(convertDegreesToRadians(Lat)) ));
+
+        Dawn = Z - VD;                  //Prayer time 1
+        getPrayerTime[0] = Dawn;
+
+        Sunrise = Z-U;
+        getPrayerTime[1] = Sunrise;
+
+        Noon = Z;                       //Prayer time 2
+        getPrayerTime[2] = Noon;
+
+        Afternoon = Z+W;                //Prayer time 3
+        getPrayerTime[3] = Afternoon;
+
+        Sunset = Z+U;                   //Prayer time 4
+        getPrayerTime[4] = Sunset;
+
+        Dusk = Z+VN;                    //Prayer time 5
+        getPrayerTime[5] = Dusk;
+    return getPrayerTime;
     }
 
 };
