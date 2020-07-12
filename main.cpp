@@ -9,14 +9,13 @@ using namespace std;
 const double PI = 3.14159265358979323846;
 
 class PrayerTime{
+
 private:
     double Long,Lat,timeZone,Height,GD,GN;
     int SH,dayOfYear;
-    time_t getTime = time(0);
-    tm *currentDate = localtime(&getTime);
 
 public:
-    PrayerTime(double newLong,double newLat,double newTimeZone,double newHeight,double newGD,double newGN,int newSH){
+    PrayerTime(double newLong,double newLat,double newTimeZone,double newHeight,double newGD,double newGN,int newSH ,int newDayYear){
         Long = newLong;
         Lat = newLat;
         timeZone = newTimeZone;
@@ -24,7 +23,7 @@ public:
         GD = newGD;
         GN = newGN;
         SH = newSH;
-        dayOfYear = currentDate->tm_yday;
+        dayOfYear = newDayYear;
     }
     //Set & Get Longitude Of Your Country
     void setLong(double newLong){
@@ -164,9 +163,12 @@ int main()
     double Height = 321;
     double GD = 19.5;
     double GN = 17.5;
+    time_t getTime = time(0);
+    tm *currentDate = localtime(&getTime);
+    int dayYear = currentDate->tm_yday;
     int SH = 1;      //1 if your mazhab shafaii.
 
-    PrayerTime getPrayerTime(Long,Lat,timeZone,Height,GD,GN,SH);
+    PrayerTime getPrayerTime(Long,Lat,timeZone,Height,GD,GN,SH,dayYear);
     getPrayerTime.displayPrayerTimeInHoursMinute();
     return 0;
 }
