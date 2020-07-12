@@ -3,6 +3,8 @@
 #include <ctime>
 using namespace std;
 
+const double PI = 3.14159265358979323846;
+
 class PrayerTime{
 private:
     double Long,Lat,timeZone,Height,GD,GN;
@@ -72,10 +74,10 @@ public:
     }
 
     double convertRadiansToDegrees(double radians){  //Function that convert radians to degrees.
-        return (radians*(180/M_PI));
+        return (radians*(180/PI));
     }
     double convertDegreesToRadians(double degrees){  //Function that convert degrees to radians.
-        return (degrees*(M_PI/180));
+        return (degrees*(PI/180));
     }
 
 };
