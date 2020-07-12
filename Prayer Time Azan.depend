@@ -1,1 +1,8 @@
 # depslib dependency file v1.0
+1594574637 source:d:\cs\code\prayer time azan\main.cpp
+	<iostream>
+	<math.h>
+	<ctime>
+	<cmath>
+	<map>
+

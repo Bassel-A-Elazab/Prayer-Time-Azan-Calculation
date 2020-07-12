@@ -129,7 +129,29 @@ double *calculatePrayerTime(){
             cout<<*(printPrayer+i)<<endl;
         }
     }
+    map<int,int>convertPrayerTimeToHoursMinutes(){
+        double *formatPrayerTime = calculatePrayerTime();
+        map <int,int> prayerTimeInHoursMinute;
+        int hours,minute;
+        for(int i = 0; i < 6; i++){
+            if(*(formatPrayerTime+i) > 24){
+                *(formatPrayerTime+i) = (( *(formatPrayerTime+i) - int(*(formatPrayerTime+i)) )*24);
+            }else if(*(formatPrayerTime+i) < 0){
+                *(formatPrayerTime+i) = 24;
+            }
+        hours = floor(int(*(formatPrayerTime+i)));
+        minute = floor((*(formatPrayerTime+i) - int(*(formatPrayerTime+i)))*60);
 
+        prayerTimeInHoursMinute.insert({hours,minute});
+        }
+    return prayerTimeInHoursMinute;
+    }
+    void displayPrayerTimeInHoursMinute(){
+        map<int,int> getPrayerTimeHoursMinute = convertPrayerTimeToHoursMinutes();
+        for(auto const& x : getPrayerTimeHoursMinute){
+            cout<<x.first<<":"<<x.second<<endl;
+        }
+    }
 };
 int main()
 {
@@ -145,6 +167,6 @@ int main()
     int SH = 1;      //1 if your mazhab shafaii.
 
     PrayerTime getPrayerTime(Long,Lat,timeZone,Height,GD,GN,SH);
-    getPrayerTime.displayPrayerTime();
+    getPrayerTime.displayPrayerTimeInHoursMinute();
     return 0;
 }
