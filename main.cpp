@@ -95,10 +95,19 @@ double *calculatePrayerTime(){
         Z = 12+((R-Long)/15)-(T/60);
 
         U = (180/(15*PI))*acos( (sin(convertDegreesToRadians((-0.8333-0.0347*sin(Height)*pow(abs(Height),0.05)))) - sin(convertDegreesToRadians(D)) * sin(convertDegreesToRadians(Lat))) / (cos(convertDegreesToRadians(D)) * cos(convertDegreesToRadians(Lat))) );
+        if(isnan(U)){
+            U = (sin(convertDegreesToRadians((-0.8333-0.0347*sin(Height)*pow(abs(Height),0.05)))) - sin(convertDegreesToRadians(D)) * sin(convertDegreesToRadians(Lat))) / (cos(convertDegreesToRadians(D)) * cos(convertDegreesToRadians(Lat)));
+            }
 
         VD = (180/(15*PI)) * acos( ( -sin(convertDegreesToRadians(GD)) - sin(convertDegreesToRadians(D)) * sin(convertDegreesToRadians(Lat)) ) / ( cos(convertDegreesToRadians(D)) * cos(convertDegreesToRadians(Lat)) ));
+        if(isnan(VD)){
+            VD = ( -sin(convertDegreesToRadians(GD)) - sin(convertDegreesToRadians(D)) * sin(convertDegreesToRadians(Lat)) ) / ( cos(convertDegreesToRadians(D)) * cos(convertDegreesToRadians(Lat)) );
+            }
 
         VN = (180/(15*PI)) * acos( ( -sin(convertDegreesToRadians(GN)) - sin(convertDegreesToRadians(D)) * sin(convertDegreesToRadians(Lat)) ) / ( cos(convertDegreesToRadians(D)) * cos(convertDegreesToRadians(Lat)) ));
+        if(isnan(VN)){
+            VN = ( -sin(convertDegreesToRadians(GN)) - sin(convertDegreesToRadians(D)) * sin(convertDegreesToRadians(Lat)) ) / ( cos(convertDegreesToRadians(D)) * cos(convertDegreesToRadians(Lat)) );
+            }
 
         W = (180/(15*PI)) * acos( (sin(atan(1/(SH+tan(convertDegreesToRadians(abs(Lat-D)))))) - sin(convertDegreesToRadians(D))) / ( cos(convertDegreesToRadians(D)) * cos(convertDegreesToRadians(Lat)) ));
 
@@ -167,7 +176,6 @@ int main()
     tm *currentDate = localtime(&getTime);
     int dayYear = currentDate->tm_yday;
     int SH = 1;      //1 if your mazhab shafaii.
-
     PrayerTime getPrayerTime(Long,Lat,timeZone,Height,GD,GN,SH,dayYear);
     getPrayerTime.displayPrayerTimeInHoursMinute();
     return 0;
