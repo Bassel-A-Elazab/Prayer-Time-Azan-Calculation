@@ -14,7 +14,7 @@ private:
     tm *currentDate = localtime(&getTime);
 
 public:
-    PrayerTime(double newLong,double newLat,double newTimeZone,double newHeight,double,double newGD,double newGN,int newSH){
+    PrayerTime(double newLong,double newLat,double newTimeZone,double newHeight,double newGD,double newGN,int newSH){
         Long = newLong;
         Lat = newLat;
         timeZone = newTimeZone;
@@ -83,7 +83,7 @@ public:
 
 double *calculatePrayerTime(){
         double yearAngle,D,T,R,Z,U,VD,VN,W,Dawn,Sunrise,Noon,Afternoon,Sunset,Dusk;
-        double getPrayerTime[6];
+        static double getPrayerTime[6];
         yearAngle = ((2*PI)*dayOfYear)/365;       //Calculate Year Angle.
         R = 15*timeZone;                                //Calculate Reference Longitude In Degrees.
         // Calculate Solar Declination In Degrees.
@@ -121,9 +121,15 @@ double *calculatePrayerTime(){
     return getPrayerTime;
     }
 
+    void displayPrayerTime(){
+        double *printPrayer = calculatePrayerTime();
+        for(int i = 0; i < 6; i++){
+            cout<<*(printPrayer+i)<<endl;
+        }
+    }
 };
 int main()
 {
-    cout << "Hello world!" << endl;
+
     return 0;
 }
