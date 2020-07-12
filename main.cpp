@@ -5,7 +5,7 @@ using namespace std;
 
 class PrayerTime{
 private:
-    double Long,Lat,timeZone,H,GD,GN;
+    double Long,Lat,timeZone,Height,GD,GN;
     int SH,dayOfYear;
     time_t getTime = time(0);
     tm *currentDate = localtime(&getTime);
@@ -69,6 +69,13 @@ public:
     }
     double getSH(){
         return SH;
+    }
+
+    double convertRadiansToDegrees(double radians){  //Function that convert radians to degrees.
+        return (radians*(180/M_PI));
+    }
+    double convertDegreesToRadians(double degrees){  //Function that convert degrees to radians.
+        return (degrees*(M_PI/180));
     }
 
 };
