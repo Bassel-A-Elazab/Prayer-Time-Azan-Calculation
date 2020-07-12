@@ -2,8 +2,10 @@
 #include <math.h>
 #include <ctime>
 #include <cmath>
+#include <map>
 using namespace std;
 
+#define MAXLEN 6                            //For Prayer Time (Dawn , Sunrise , Noon , Afternoon , Sunset , Dusk).
 const double PI = 3.14159265358979323846;
 
 class PrayerTime{
@@ -121,15 +123,28 @@ double *calculatePrayerTime(){
     return getPrayerTime;
     }
 
-    void displayPrayerTime(){
+    void displayPrayerTimeBeforeConvertedToHoursMinute(){
         double *printPrayer = calculatePrayerTime();
         for(int i = 0; i < 6; i++){
             cout<<*(printPrayer+i)<<endl;
         }
     }
+
 };
 int main()
 {
 
+
+        // This Information Based on Cairo Egypt...
+    double Long = 31.14;
+    double Lat = 30.01;
+    double timeZone = 2.00;
+    double Height = 321;
+    double GD = 19.5;
+    double GN = 17.5;
+    int SH = 1;      //1 if your mazhab shafaii.
+
+    PrayerTime getPrayerTime(Long,Lat,timeZone,Height,GD,GN,SH);
+    getPrayerTime.displayPrayerTime();
     return 0;
 }
