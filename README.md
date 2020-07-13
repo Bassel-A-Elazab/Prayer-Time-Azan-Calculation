@@ -9,7 +9,7 @@ because I'm a programmer I don't need more details in Astronomy science - more c
 and there are many APIs that were applied, but I Found  a reference [3] and its seems different for another and its looks like easy , simple , basic to code it. 
 
 # Code Usage
-Im coding using c++ programming language and i made program that's easy to modify on it and i made it global to calculate any pyaer time belongs to any country<br/>
+Im coding using c++ programming language and I made program that's easy to modify on it - I made it global to calculate any prayer time belongs to any country<br/>
 just change main variables like ( Longitude , Latitude , TimeZone , Height Above the Sea , Dawn’s Twilight Angle , Night’s Twilight Angle ).
 # References
 [1] http://praytime.info/document.html <br/>
